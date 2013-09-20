@@ -15,3 +15,17 @@
 (define (andmapp pred lst)
   (foldrr (lambda (x y) (and (pred x) y)) #t lst))
 
+; Reduce an NxM matrix to a vector of length M by applying an operation to
+; the values of every column.
+(define (matrix-to-vector op mat)
+  (define result '())
+  (for/list ([col (in-range 0 (length (car mat)))])
+    (append result (apply op (reverse (column-values mat col '()))))))
+
+; Retrieve the column values from a matrix for a specific column.
+(define (column-values mat col vals)
+  (cond
+    ((null? mat) vals)
+    (else
+      (column-values (cdr mat) col (cons (list-ref (car mat) col) vals)))))
+
