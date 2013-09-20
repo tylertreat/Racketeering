@@ -11,7 +11,7 @@
 (define (map-reduce map-op reduce-op accumulate lst)
   (foldr reduce-op accumulate (map map-op lst)))
 
-; Indicate if every element in the list satisfies the predicate.
+; Custom implementation of andmap.
 (define (andmapp pred lst)
   (foldrr (lambda (x y) (and (pred x) y)) #t lst))
 
